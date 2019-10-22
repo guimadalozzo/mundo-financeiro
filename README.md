@@ -1,2 +1,5 @@
-# mundo-financeiro
-Trabalho final da matéria de Sistemas Distribuídos
+# Mundo Financeiro
+Trabalho final da matéria de Sistemas Distribuídos.
+
+## Licença
+Licença MIT.
