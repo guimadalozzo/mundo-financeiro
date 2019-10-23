@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using AutoMapper;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MundoFinanceiro.Database.Contracts.Persistence;
 using MundoFinanceiro.Database.Persistence;
+using MundoFinanceiro.Shared.Attributes;
 using MundoFinanceiro.Shared.Constants;
 
 namespace MundoFinanceiro.Crawler
@@ -79,6 +81,31 @@ namespace MundoFinanceiro.Crawler
                 throw new ArgumentNullException(nameof(connectionString), @"A connection string não pode ser nula.");
             
             services.AddScoped<IUnitOfWork>(provider => new UnitOfWork(connectionString));
+            
+            // Mapped Services
+            ConfigureMappedServices(services);
+        }
+        
+        /// <summary>
+        /// Configura os serviços que possuem o atributo MappedService. 
+        /// </summary>
+        /// <param name="services">Collection de serviços da aplicação</param>
+        private static void ConfigureMappedServices(IServiceCollection services)
+        {
+            var attributeType = typeof(MappedServiceAttribute);
+            var types = Assembly
+                .GetExecutingAssembly()
+                .GetTypes()
+                .Where(x => x.GetCustomAttributes(attributeType, true).Length > 0);
+
+            foreach (var type in types)
+            {
+                var inheritedType = type
+                    .GetInterfaces()
+                    .Single(x => x.Name.Contains(type.Name));
+
+                services.AddScoped(inheritedType, type);
+            }
         }
         
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
