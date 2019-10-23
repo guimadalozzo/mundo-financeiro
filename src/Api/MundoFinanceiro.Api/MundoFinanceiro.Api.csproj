@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Data\MundoFinanceiro.Bot\MundoFinanceiro.Bot.csproj" />
+      <ProjectReference Include="..\..\Data\MundoFinanceiro.Database\MundoFinanceiro.Database.csproj" />
+      <ProjectReference Include="..\..\Shared\MundoFinanceiro.Shared\MundoFinanceiro.Shared.csproj" />
+    </ItemGroup>
+
+</Project>
