@@ -341,4 +341,4 @@ ASALocalRun/
 .env
 
 # Project
-databaseSettings.json
+settings.json
