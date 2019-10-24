@@ -76,12 +76,17 @@ namespace MundoFinanceiro.Crawler.Controllers.v1
             
             var papeisPendentes = await _unitOfWork.Papeis.BuscaPapeisPendentesAsync();
             _logger.LogInformation($"Total de papéis pendentes: {papeisPendentes.Count()}.");
-            
-            var fundamentosProcessados = await _fundamentoService.ProcessarAsync(papeisPendentes);
-            _logger.LogInformation($"Total de fundamentos processados: {fundamentosProcessados.Count()}.");
 
-            var fundamentosDtos = _mapper.Map<IEnumerable<FundamentoDto>>(fundamentosProcessados);
-            return Ok(fundamentosDtos);
+            if (papeisPendentes.Count > 0)
+            {
+                var fundamentosProcessados = await _fundamentoService.ProcessarAsync(papeisPendentes);
+                _logger.LogInformation($"Total de fundamentos processados: {fundamentosProcessados.Count()}.");
+
+                var fundamentosDtos = _mapper.Map<IEnumerable<FundamentoDto>>(fundamentosProcessados);
+                return Ok(fundamentosDtos);   
+            }
+
+            return Ok(new ResponseDto("Não existe papel pendente no momento."));
         }
     }
 }

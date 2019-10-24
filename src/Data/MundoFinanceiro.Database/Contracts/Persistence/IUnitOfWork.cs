@@ -8,6 +8,7 @@ namespace MundoFinanceiro.Database.Contracts.Persistence
     {
         IFundamentoRepository Fundamentos { get; }
         IPapelRepository Papeis { get; }
+        IParametroRepository Parametros { get; }
         
         int Complete();
         Task<int> CompleteAsync();

@@ -7,6 +7,7 @@ using HtmlAgilityPack;
 using Microsoft.Extensions.Logging;
 using MundoFinanceiro.Crawler.Contracts.Services.Data;
 using MundoFinanceiro.Crawler.Helpers;
+using MundoFinanceiro.Database.Contracts.Persistence;
 using MundoFinanceiro.Database.Contracts.Persistence.Domains;
 using MundoFinanceiro.Shared.Attributes;
 
@@ -15,11 +16,19 @@ namespace MundoFinanceiro.Crawler.Services.Data
     [MappedService]
     internal class FundamentoCrawler : IFundamentoCrawler
     {
+        // Id do parâmetro de número máximo de tasks
+        private const short MaximoNumeroThreads = 1;
+        
+        // Id do parâmetro de intervalo de processamentos
+        private const short IntervaloProcessamentos = 2;
+        
         private readonly ILogger<FundamentoCrawler> _logger;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public FundamentoCrawler(ILogger<FundamentoCrawler> logger)
+        public FundamentoCrawler(ILogger<FundamentoCrawler> logger, IUnitOfWork unitOfWork)
         {
             _logger = logger;
+            _unitOfWork = unitOfWork;
         }
 
         private const string BaseUrl = "https://www.fundamentus.com.br/detalhes.php?papel={0}";
@@ -60,16 +69,20 @@ namespace MundoFinanceiro.Crawler.Services.Data
             }
         }
         
+        // ReSharper disable once AccessToDisposedClosure
         public async Task<ICollection<Fundamento>> ProcessarAsync(IList<Papel> papeis)
         {
             // Instancia a lista de fundamentos que será retornada
             var fundamentos = new List<Fundamento>();
             
-            // TODO: Adicionar esse valor à um parâmetro de banco
             // Define o número máximo de tasks que podem rodar simultaneamente para evitar bloqueio de IP
-            const int maxConcurrency = 4;
+            var maximoNumeroThreads = await _unitOfWork.Parametros.BuscarValorInteiroAsync(MaximoNumeroThreads, 4);
+            _logger.LogInformation($"Número máximo de threads configurado pelo banco: {maximoNumeroThreads}.");
 
-            using (var semaforo  = new SemaphoreSlim(maxConcurrency))
+            var intervaloProcessamento = await _unitOfWork.Parametros.BuscarValorInteiroAsync(IntervaloProcessamentos, 10);
+            _logger.LogInformation($"Intervalo de processamento configurado pelo banco: {intervaloProcessamento}.");
+            
+            using (var semaforo  = new SemaphoreSlim(maximoNumeroThreads))
             {
                 var tasks = new List<Task>(papeis.Count);
                 foreach (var papel in papeis)
@@ -79,7 +92,7 @@ namespace MundoFinanceiro.Crawler.Services.Data
                     _logger.LogDebug($"Papel {papel.Nome} entrou no semáforo.");
                     
                     // Cria a task de processamento dos dados
-                    var task = Task.Run(async () => await ProcessarAsync(papel, fundamentos, semaforo));
+                    var task = Task.Run(async () => await ProcessarAsync(papel, fundamentos, semaforo, intervaloProcessamento));
 
                     // Adiciona o processo do papel na lista
                     tasks.Add(task);
@@ -93,7 +106,7 @@ namespace MundoFinanceiro.Crawler.Services.Data
             return fundamentos;
         }
 
-        private async Task ProcessarAsync(Papel papel, ICollection<Fundamento> fundamentos, SemaphoreSlim semaforo)
+        private async Task ProcessarAsync(Papel papel, ICollection<Fundamento> fundamentos, SemaphoreSlim semaforo, int intervaloProcessamento)
         {
             try
             {
@@ -102,8 +115,8 @@ namespace MundoFinanceiro.Crawler.Services.Data
                 fundamentos.Add(fundamento);
 
                 // Aguarda cinco segundos entre processamentos para evitar bloqueio de IP
-                _logger.LogInformation($"Delay de cinco segundos após processar o papel {papel.Id}...");
-                await Task.Delay(TimeSpan.FromSeconds(5));
+                _logger.LogInformation($"Delay de {intervaloProcessamento} segundos após processar o papel {papel.Id}...");
+                await Task.Delay(TimeSpan.FromSeconds(intervaloProcessamento));
             }
             catch (Exception e)
             {

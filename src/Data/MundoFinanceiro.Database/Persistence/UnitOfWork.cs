@@ -11,6 +11,7 @@ namespace MundoFinanceiro.Database.Persistence
         private readonly DataContext _context;
         private IFundamentoRepository _fundamentos;
         private IPapelRepository _papeis;
+        private IParametroRepository _parametros;
 
         public UnitOfWork(string connectionString)
         {
@@ -22,7 +23,8 @@ namespace MundoFinanceiro.Database.Persistence
         
         public IFundamentoRepository Fundamentos => _fundamentos ?? (_fundamentos = new FundamentoRepository(_context));
         public IPapelRepository Papeis => _papeis ?? (_papeis = new PapelRepository(_context));
-        
+        public IParametroRepository Parametros => _parametros ?? (_parametros = new ParametroRepository(_context));
+
         public int Complete() => _context.SaveChanges();
 
         public Task<int> CompleteAsync() => _context.SaveChangesAsync();

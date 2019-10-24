@@ -20,6 +20,7 @@ namespace MundoFinanceiro.Database.Persistence
 
         public DbSet<Fundamento> Fundamentos { get; set; }
         public DbSet<Papel> Papeis { get; set; }
+        public DbSet<Parametro> Parametros { get; set; }
 
         public DataContext(string connectionString) 
             => _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
