@@ -6,10 +6,10 @@ namespace MundoFinanceiro.Database.Contracts.Persistence.Domains
     {
         public int Id { get; set; }
         public short PapelId { get; set; }
-        public float LPA { get; set; }
-        public float VPA { get; set; }
-        public float ROE { get; set; }
-        public float ROIC { get; set; }
+        public double LPA { get; set; }
+        public double VPA { get; set; }
+        public double ROE { get; set; }
+        public double ROIC { get; set; }
         public decimal ValorMercado { get; set; }
         public DateTime Data { get; set; }
 

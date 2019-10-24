@@ -30,19 +30,19 @@ namespace MundoFinanceiro.Database.Migrations
                         .HasColumnName("data")
                         .HasDefaultValueSql("NOW()");
 
-                    b.Property<float>("LPA")
+                    b.Property<double>("LPA")
                         .HasColumnName("lpa");
 
                     b.Property<short>("PapelId")
                         .HasColumnName("papel_id");
 
-                    b.Property<float>("ROE")
+                    b.Property<double>("ROE")
                         .HasColumnName("roe");
 
-                    b.Property<float>("ROIC")
+                    b.Property<double>("ROIC")
                         .HasColumnName("roic");
 
-                    b.Property<float>("VPA")
+                    b.Property<double>("VPA")
                         .HasColumnName("vpa");
 
                     b.Property<decimal>("ValorMercado")

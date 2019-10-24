@@ -7,6 +7,6 @@ namespace MundoFinanceiro.Crawler.Contracts.Services.Data
     public interface IFundamentoService
     {
         Task<Fundamento> ProcessarAsync(Papel papel);
-        Task<IEnumerable<Fundamento>> ProcessarAsync(IEnumerable<Papel> papeis);
+        Task<IEnumerable<Fundamento>> ProcessarAsync(IList<Papel> papeis);
     }
 }

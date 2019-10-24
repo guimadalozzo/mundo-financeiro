@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -47,8 +48,16 @@ namespace MundoFinanceiro.Crawler.Controllers.v1
 
             if (!(await _unitOfWork.Fundamentos.BuscaFundamentoDiaAsync(id) is { } fundamentoDia))
             {
-                _logger.LogDebug($"Vai processar o papel {papel.Nome}, id {id}.");
-                fundamentoDia = await _fundamentoService.ProcessarAsync(papel);
+                try
+                {
+                    _logger.LogDebug($"Vai processar o papel {papel.Nome} de id {id}.");
+                    fundamentoDia = await _fundamentoService.ProcessarAsync(papel);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError($"Erro de processamento para o papel {papel.Nome} de id {id}. Mensagem: {e.Message}");
+                    return BadRequest(new ResponseDto($"Não foi possível processar o papel {papel.Nome} de id {id}."));
+                }
             }
 
             var fundamentoDto = _mapper.Map<FundamentoDto>(fundamentoDia);
