@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-12 col-sm-6 offset-sm-3 form-group">
-        <input placeholder="Digite o ticker do papel" class="form-control"/>
+        <input id="papeis" placeholder="Digite o ticker do papel" class="form-control"/>
     </div>
 </div>
 
@@ -28,3 +28,16 @@
         </div>
     </div>
 </div>
+
+@section Styles
+{
+    <partial name="Styles/_Typeahead"/>
+    <partial name="Styles/_Toastr"/>
+}
+
+@section Scripts
+{ 
+    <partial name="Scripts/_Typeahead"/>
+    <partial name="Scripts/_Toastr"/>
+    <script src="js/home.js" type="text/javascript" asp-append-version="true"></script>
+}

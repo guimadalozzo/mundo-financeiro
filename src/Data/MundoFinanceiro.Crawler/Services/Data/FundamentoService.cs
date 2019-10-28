@@ -44,5 +44,11 @@ namespace MundoFinanceiro.Crawler.Services.Data
             // Retorna os fundamentos processados
             return fundamentos;
         }
+
+        public void Dispose()
+        {
+            _crawler?.Dispose();
+            _unitOfWork?.Dispose();
+        }
     }
 }

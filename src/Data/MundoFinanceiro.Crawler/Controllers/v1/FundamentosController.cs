@@ -88,5 +88,12 @@ namespace MundoFinanceiro.Crawler.Controllers.v1
 
             return Ok(new ResponseDto("Não existe papel pendente no momento."));
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            _unitOfWork?.Dispose();
+            _fundamentoService?.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }

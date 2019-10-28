@@ -43,12 +43,10 @@ namespace MundoFinanceiro.Crawler.Controllers.v1
         }
 
         [HttpGet("Pendentes")]
-        public async Task<IActionResult> BuscaPendentesAsync()
+        protected override void Dispose(bool disposing)
         {
-            var papeis = await _unitOfWork.Papeis.BuscaPapeisPendentesAsync();
-            var papeisDtos = _mapper.Map<IEnumerable<PapelDto>>(papeis);
-
-            return Ok(papeisDtos);
+            _unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

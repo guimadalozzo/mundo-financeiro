@@ -194,5 +194,10 @@ namespace MundoFinanceiro.Crawler.Services.Data
                 .Replace(" ", "")
                 .Trim();
         }
+
+        public void Dispose()
+        {
+            _unitOfWork?.Dispose();
+        }
     }
 }

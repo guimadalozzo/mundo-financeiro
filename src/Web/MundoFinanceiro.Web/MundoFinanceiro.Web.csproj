@@ -7,11 +7,14 @@
 
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Data\MundoFinanceiro.Database\MundoFinanceiro.Database.csproj" />
       <ProjectReference Include="..\..\Shared\MundoFinanceiro.Shared\MundoFinanceiro.Shared.csproj" />
     </ItemGroup>
 
 
     <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="9.0.0" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.0.0" />
     </ItemGroup>
 

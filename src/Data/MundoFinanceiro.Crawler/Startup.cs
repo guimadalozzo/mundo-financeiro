@@ -69,7 +69,6 @@ namespace MundoFinanceiro.Crawler
                 });
             });
             
-            // TODO: Adicionar autenticação
             ConfigureContainer(services);
         }
 
