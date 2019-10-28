@@ -11,6 +11,7 @@ namespace MundoFinanceiro.Database.Contracts.Persistence.Domains
         
         public short Id { get; set; }
         public string Nome { get; set; }
+        public bool Ativo { get; set; }
 
         public virtual ICollection<Fundamento> Fundamentos { get; set; }
     }

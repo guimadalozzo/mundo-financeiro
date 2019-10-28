@@ -17,6 +17,11 @@ namespace MundoFinanceiro.Database.Persistence.EntityConfigurations
                 .Property(x => x.Nome)
                 .IsRequired()
                 .HasMaxLength(NomeMaxLength);
+
+            builder
+                .Property(x => x.Ativo)
+                .IsRequired()
+                .HasDefaultValue(true);
             
             // Indexes
             builder
