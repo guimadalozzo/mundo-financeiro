@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using MundoFinanceiro.Crawler.Dtos;
 using MundoFinanceiro.Database.Contracts.Persistence;
 using MundoFinanceiro.Shared.Constants;
+using MundoFinanceiro.Shared.Dtos;
 
 namespace MundoFinanceiro.Crawler.Controllers.v1
 {

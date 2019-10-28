@@ -2,12 +2,20 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.0</TargetFramework>
+        <UserSecretsId>eb8b08df-664b-4283-8558-a2052427d9fb</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\Data\MundoFinanceiro.Bot\MundoFinanceiro.Bot.csproj" />
       <ProjectReference Include="..\..\Data\MundoFinanceiro.Database\MundoFinanceiro.Database.csproj" />
       <ProjectReference Include="..\..\Shared\MundoFinanceiro.Shared\MundoFinanceiro.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="9.0.0" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.0.0-preview8.19405.7" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
     </ItemGroup>
 
 </Project>

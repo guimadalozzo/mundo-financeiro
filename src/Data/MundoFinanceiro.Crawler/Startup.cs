@@ -54,7 +54,7 @@ namespace MundoFinanceiro.Crawler
                 {
                     Title = $"MundoFinanceiro.Crawler ({VersionConstants.V1})",
                     Version = VersionConstants.V1,
-                    Description = "API utilizada para realizar a requisição da mineração dos fundamentos..",
+                    Description = "API utilizada para realizar a requisição da mineração dos fundamentos.",
                     Contact = new OpenApiContact
                     {
                         Name = "Daniel Cunha",
