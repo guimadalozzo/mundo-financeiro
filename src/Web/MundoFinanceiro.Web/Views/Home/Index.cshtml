@@ -1,8 +1,30 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Página Inicial";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome!</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row">
+    <div class="col-12 col-sm-6 offset-sm-3 form-group">
+        <input placeholder="Digite o ticker do papel" class="form-control"/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-8 bg-warning">
+        <div class="text-center">
+            <p>Coluna do gráfico</p>
+        </div>
+    </div>
+    <div class="col-12 col-md-4 bg-info">
+        <div class="text-center">
+            <p>Coluna das notícias</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-8 bg-success">
+        <div class="text-center">
+            <p>Coluna dos fundamentos</p>
+        </div>
+    </div>
 </div>
