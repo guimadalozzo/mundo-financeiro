@@ -6,7 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Data\MundoFinanceiro.Bot\MundoFinanceiro.Bot.csproj" />
       <ProjectReference Include="..\..\Data\MundoFinanceiro.Database\MundoFinanceiro.Database.csproj" />
       <ProjectReference Include="..\..\Shared\MundoFinanceiro.Shared\MundoFinanceiro.Shared.csproj" />
     </ItemGroup>
