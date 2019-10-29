@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace MundoFinanceiro.Crawler
+namespace MundoFinanceiro.Replicacao
 {
     public static class Program
     {
@@ -16,7 +16,7 @@ namespace MundoFinanceiro.Crawler
                 {
                     webBuilder
                         .UseStartup<Startup>()
-                        .UseUrls("http://localhost:5000", "https://localhost:5001");
+                        .UseUrls("http://localhost:5006", "https://localhost:5007");
                 });
     }
 }

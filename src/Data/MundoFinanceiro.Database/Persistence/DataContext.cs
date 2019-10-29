@@ -7,11 +7,11 @@ using MundoFinanceiro.Shared.Extensions;
 
 namespace MundoFinanceiro.Database.Persistence
 {
-    internal class DataContext : DbContext
+    public class DataContext : DbContext
     {
         private readonly string _connectionString;
-        
-        public DataContext() : this(Settings.ConnectionString)
+
+        internal DataContext() : this(Settings.ConnectionString)
         {
 #if !DEBUG
      throw new ApplicationException("Não é permitido instanciar o DataContext sem connection string em produção.");       

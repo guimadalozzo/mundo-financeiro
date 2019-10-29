@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MundoFinanceiro.Web", "Web\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MundoFinanceiro.Crawler", "Data\MundoFinanceiro.Crawler\MundoFinanceiro.Crawler.csproj", "{DEAE072F-2683-465D-A485-D45F3B2A9E0C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MundoFinanceiro.Replicacao", "Data\MundoFinanceiro.Replicacao\MundoFinanceiro.Replicacao.csproj", "{A797AEE3-0DA6-4125-B7D6-E0C1317E91E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,7 @@ Global
 		{EC9F20F3-09F2-4410-B067-B3AC01F0DC63} = {E5756CB4-E4C2-4986-88D7-703B59130880}
 		{5D89AF65-6DDD-4B12-9885-DD633929FD72} = {F6BF6EC3-13AD-4A5A-92BF-B3130AB4F3CA}
 		{DEAE072F-2683-465D-A485-D45F3B2A9E0C} = {0DB93FB1-6455-48E5-A9B6-0FB7E32E84AA}
+		{A797AEE3-0DA6-4125-B7D6-E0C1317E91E0} = {0DB93FB1-6455-48E5-A9B6-0FB7E32E84AA}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2E776BC4-781D-4759-81E8-527785FA4FD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -101,5 +104,17 @@ Global
 		{DEAE072F-2683-465D-A485-D45F3B2A9E0C}.Release|x64.Build.0 = Release|Any CPU
 		{DEAE072F-2683-465D-A485-D45F3B2A9E0C}.Release|x86.ActiveCfg = Release|Any CPU
 		{DEAE072F-2683-465D-A485-D45F3B2A9E0C}.Release|x86.Build.0 = Release|Any CPU
+		{A797AEE3-0DA6-4125-B7D6-E0C1317E91E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A797AEE3-0DA6-4125-B7D6-E0C1317E91E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A797AEE3-0DA6-4125-B7D6-E0C1317E91E0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A797AEE3-0DA6-4125-B7D6-E0C1317E91E0}.Debug|x64.Build.0 = Debug|Any CPU
+		{A797AEE3-0DA6-4125-B7D6-E0C1317E91E0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A797AEE3-0DA6-4125-B7D6-E0C1317E91E0}.Debug|x86.Build.0 = Debug|Any CPU
+		{A797AEE3-0DA6-4125-B7D6-E0C1317E91E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A797AEE3-0DA6-4125-B7D6-E0C1317E91E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A797AEE3-0DA6-4125-B7D6-E0C1317E91E0}.Release|x64.ActiveCfg = Release|Any CPU
+		{A797AEE3-0DA6-4125-B7D6-E0C1317E91E0}.Release|x64.Build.0 = Release|Any CPU
+		{A797AEE3-0DA6-4125-B7D6-E0C1317E91E0}.Release|x86.ActiveCfg = Release|Any CPU
+		{A797AEE3-0DA6-4125-B7D6-E0C1317E91E0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
