@@ -266,3 +266,28 @@ var chart = new ApexCharts(
 );
 
 chart.render();
+
+function BuscaOnvest(keyWork) {
+    var request = new XMLHttpRequest();
+
+// Open a new connection, using the GET request on the URL endpoint
+    request.open('GET', 'https://newsapi.org/v2/everything?q='+keyWord+'&apiKey=2aaa77be14d6496885ce7bb053b920cd', true);
+
+    request.onload = function() {
+        var data = this.response;
+        data = JSON.parse(data);
+        console.log(data)
+    };
+    request.send();
+    var urll = 'https://newsapi.org/v2/everything?q='+keyWord+'&apiKey=2aaa77be14d6496885ce7bb053b920cd';
+    $.ajax({
+        url: urll,
+        type: 'POST',
+        success:function (ret) {
+            console.log(ret);
+            var data = JSON.parse(ret);
+            console.log(data);
+        }
+    })
+    
+}

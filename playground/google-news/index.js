@@ -24,5 +24,5 @@ function BuscaNoticia(keyWord) {
         }
         $('#teste').html(str); // trocar dps pra onde vai setar o html da chamada
     };
-    request.send()
+    request.send();
 }
