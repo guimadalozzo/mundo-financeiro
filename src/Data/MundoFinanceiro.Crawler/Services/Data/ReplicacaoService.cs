@@ -63,8 +63,9 @@ namespace MundoFinanceiro.Crawler.Services.Data
                     _logger.LogError("O fundamento replicado não pode ser nulo.");
                 else
                 {
-                    var requestUrl = $"{url}/v1/Fundamentos";
+                    var requestUrl = $"{url}/api/v1/Fundamentos";
                     var content = new StringContent(JsonConvert.SerializeObject(fundamento), Encoding.UTF8);
+                    content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
                     using var client = CreateHttpClient();
                     
