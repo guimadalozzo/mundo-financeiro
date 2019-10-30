@@ -16,7 +16,9 @@ namespace MundoFinanceiro.Crawler
                 {
                     webBuilder
                         .UseStartup<Startup>()
-                        .UseUrls("http://localhost:5000", "https://localhost:5001");
+                        .UseKestrel()
+                        .UseIISIntegration()
+                        .UseUrls("http://*:5000", "https://*:5001");
                 });
     }
 }

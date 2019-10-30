@@ -21,7 +21,7 @@ namespace MundoFinanceiro.Web
                 .ConfigureWebHostDefaults(webBuilder => {
                     webBuilder
                         .UseStartup<Startup>()
-                        .UseUrls("http://localhost:5002", "https://localhost:5003"); 
+                        .UseUrls("http://*:5002", "https://*:5003"); 
                 });
     }
 }
