@@ -19,11 +19,16 @@ function BuscaNoticia(keyWord) {
             var url = data['articles'][i]['url'];
             var title = data['articles'][i]['title'];
             var author = data['articles'][i]['author'];
+            author = author ? author : 'Autor Desconhecido!';
+            var titlespan = title.length > 77 ? title.substr(0, 77)+'...' : title;
+            console.log(title.length);
             author = author ? author : '';
-            str += "<div style='display: flex; margin-bottom: 10px; cursor: pointer' href="+url+">";
-            str += "<img height='98px' width='168px' src="+urlImage+">";
-            str += "<span style='text-align: center'>"+title+"</span>";
-            str += "<span>"+author+"</span>";
+            str += "<div style='display: flex; margin-bottom: 10px; cursor: pointer' title=title href="+url+">";
+            str += "<img height='98px' width='168px' style='border-radius: 5px' src="+urlImage+">";
+            str += "<div style='display: flow-root'>";
+            str += "<div style='margin-top: 5px; font-family: serif; font-weight: bold'><span style='text-align: center'>"+titlespan+"</span></div>";
+            str += "<div style='color: #7b7777; font-style: italic; margin-top: 7%;'><span>"+author+"</span></div>";
+            str += "</div>";
             str += "</div>";
         }
         $('#divNews').html(str);
