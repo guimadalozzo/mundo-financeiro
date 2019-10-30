@@ -16,7 +16,7 @@ namespace MundoFinanceiro.Api
                 {
                     webBuilder
                         .UseStartup<Startup>()
-                        .UseUrls("http://localhost:5004", "https://localhost:5005");
+                        .UseUrls("http://*:5004", "https://*:5005");
                 });
     }
 }

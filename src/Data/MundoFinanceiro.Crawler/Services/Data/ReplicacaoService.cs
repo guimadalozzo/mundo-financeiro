@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 using MundoFinanceiro.Crawler.Contracts.Services.Data;
 using MundoFinanceiro.Crawler.Dtos;
 using MundoFinanceiro.Database.Contracts.Persistence;
@@ -31,19 +34,71 @@ namespace MundoFinanceiro.Crawler.Services.Data
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public void ReplicarFundamentos(ICollection<Fundamento> fundamentos)
+        public async void ReplicarFundamento(Fundamento fundamento)
+        {
+            if (fundamento == null) throw new ArgumentNullException(nameof(fundamento));
+            await ReplicarFundamentoAsync(fundamento);
+        }
+        
+        public async void ReplicarFundamentos(ICollection<Fundamento> fundamentos)
         {
             if (fundamentos == null) throw new ArgumentNullException(nameof(fundamentos));
             _logger.LogInformation($"Recebido {fundamentos.Count} fundamento(s) para replicar.");
 
+            // Define o número máximo de tasks que podem rodar simultaneamente 
+            var maximoNumeroThreads = await _unitOfWork.Parametros.BuscarValorInteiroAsync(Parametro.MaximoNumeroThreads, 4);
+            _logger.LogInformation($"Número máximo de threads configurado pelo banco: {maximoNumeroThreads}.");
+
+            var intervaloProcessamento = await _unitOfWork.Parametros.BuscarValorInteiroAsync(Parametro.IntervaloProcessamentos, 10);
+            _logger.LogInformation($"Intervalo de processamento configurado pelo banco: {intervaloProcessamento}.");
+
+            using (var semaforo = new SemaphoreSlim(maximoNumeroThreads))
+            {
+                var tasks = new List<Task>(fundamentos.Count);
+                foreach (var fundamento in fundamentos)
+                {
+                    // Verifica se o semáforo está disponível
+                    await semaforo.WaitAsync();
+                    _logger.LogDebug($"Fundamento do papel {fundamento.PapelId} entrou no semáforo.");
+                    
+                    // Cria a task de processamento dos dados
+                    var task = Task.Run(async () => await ReplicarFundamentoAsync(fundamento, semaforo, intervaloProcessamento)); 
+                    
+                    // Adiciona o processo do papel na lista
+                    tasks.Add(task);
+                }
+
+                // Aguarda o término de todas as tasks
+                await Task.WhenAll(tasks.ToArray());
+            }
+            
             foreach (var fundamento in fundamentos)
                 ReplicarFundamento(fundamento);
         }
-        
-        public async void ReplicarFundamento(Fundamento fundamento)
+
+        private async Task ReplicarFundamentoAsync(Fundamento fundamento, SemaphoreSlim semaforo, int intervalo)
         {
-            if (fundamento == null) throw new ArgumentNullException(nameof(fundamento));
-            
+            try
+            {
+                await ReplicarFundamentoAsync(fundamento);
+                
+                // Aguarda X segundos entre processamentos
+                _logger.LogInformation($"Delay de {intervalo} segundos após processar o fundamento do papel de id {fundamento.PapelId}...");
+                await Task.Delay(TimeSpan.FromSeconds(intervalo));
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+            }
+            finally
+            {
+                semaforo.Release();
+                _logger.LogDebug($"Fundamento do papel de id {fundamento.PapelId} saiu do semáforo.");
+            }
+        }
+
+        private async Task ReplicarFundamentoAsync(Fundamento fundamento)
+        {
             // Busca os nodos de replicação ativos
             var nodosReplicacao = await _unitOfWork.Replicacoes.Find(x => x.Ativo).ToListAsync();
             
@@ -51,11 +106,11 @@ namespace MundoFinanceiro.Crawler.Services.Data
             foreach (var nodo in nodosReplicacao)
             {
                 var fundamentoDto = _mapper.Map<FundamentoDto>(fundamento);
-                ReplicarFundamento(nodo.Url, fundamentoDto);
+                await ReplicarFundamentoAsync(nodo.Url, fundamentoDto);
             }
         }
         
-        private async void ReplicarFundamento(string url, FundamentoDto fundamento)
+        private async Task ReplicarFundamentoAsync(string url, FundamentoDto fundamento)
         {
             try
             {

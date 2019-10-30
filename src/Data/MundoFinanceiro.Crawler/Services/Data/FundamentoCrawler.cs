@@ -16,12 +16,6 @@ namespace MundoFinanceiro.Crawler.Services.Data
     [MappedService]
     internal class FundamentoCrawler : IFundamentoCrawler
     {
-        // Id do parâmetro de número máximo de tasks
-        private const short MaximoNumeroThreads = 1;
-        
-        // Id do parâmetro de intervalo de processamentos
-        private const short IntervaloProcessamentos = 2;
-        
         private readonly ILogger<FundamentoCrawler> _logger;
         private readonly IUnitOfWork _unitOfWork;
 
@@ -76,10 +70,10 @@ namespace MundoFinanceiro.Crawler.Services.Data
             var fundamentos = new List<Fundamento>();
             
             // Define o número máximo de tasks que podem rodar simultaneamente para evitar bloqueio de IP
-            var maximoNumeroThreads = await _unitOfWork.Parametros.BuscarValorInteiroAsync(MaximoNumeroThreads, 4);
+            var maximoNumeroThreads = await _unitOfWork.Parametros.BuscarValorInteiroAsync(Parametro.MaximoNumeroThreads, 4);
             _logger.LogInformation($"Número máximo de threads configurado pelo banco: {maximoNumeroThreads}.");
 
-            var intervaloProcessamento = await _unitOfWork.Parametros.BuscarValorInteiroAsync(IntervaloProcessamentos, 10);
+            var intervaloProcessamento = await _unitOfWork.Parametros.BuscarValorInteiroAsync(Parametro.IntervaloProcessamentos, 10);
             _logger.LogInformation($"Intervalo de processamento configurado pelo banco: {intervaloProcessamento}.");
             
             using (var semaforo  = new SemaphoreSlim(maximoNumeroThreads))
