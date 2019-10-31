@@ -33,7 +33,7 @@ namespace MundoFinanceiro.Crawler.Services.Data
             foreach (var url in urls)
             {
                 var requestUrl = $"{url}/api/{endpoint}";
-                await ReplicarAsync(requestUrl, endpoint);
+                await ReplicarAsync(requestUrl, objeto);
             }
         }
 

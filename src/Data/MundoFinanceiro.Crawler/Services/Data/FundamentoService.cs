@@ -54,6 +54,10 @@ namespace MundoFinanceiro.Crawler.Services.Data
             _unitOfWork.Fundamentos.AddRange(fundamentos);
             await _unitOfWork.CompleteAsync();
 
+            // Replica o fundamento nos nodos de replicação
+            var nodosReplicacao = await BuscarReplicacoesAtivas();
+            _replicacaoService.Replicar(nodosReplicacao, "v1/Fundamentos", _mapper.Map<ICollection<FundamentoDto>>(fundamentos));
+
             // Retorna os fundamentos processados
             return fundamentos;
         }
