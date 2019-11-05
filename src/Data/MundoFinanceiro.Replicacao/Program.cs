@@ -16,7 +16,7 @@ namespace MundoFinanceiro.Replicacao
                 {
                     webBuilder
                         .UseStartup<Startup>()
-                        .UseUrls("http://localhost:5006", "https://localhost:5007");
+                        .UseUrls("http://*:5006", "https://*:5007");
                 });
     }
 }
