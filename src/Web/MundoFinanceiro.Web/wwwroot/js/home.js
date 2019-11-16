@@ -110,8 +110,6 @@ function renderizarHistoricoPapel(historico) {
 }
 
 function renderizarNoticiasPapel(noticias) {
-    // Utilizar o objeto jQuery objetosPagina.containerNoticias que já está apontando para o container de notícias
-    console.log(noticias);
     var str = "";
     for (var i = 0; i < 10; i++) {
         var urlImage = noticias[i]['urlToImage'];
@@ -134,9 +132,6 @@ function renderizarNoticiasPapel(noticias) {
 }
 
 function renderizarFundamentosPapel(fundamentos) {
-    // Utilizar o objeto jQuery objetosPagina.containerFundamentos que já está apontando para o container de fundamentos
-    console.log(fundamentos);
-    var papel = 'papel';
     var lpa = FormataNumeroMoeda(fundamentos['LPA']);
     var vpa = FormataNumeroMoeda(fundamentos['VPA']);
     var roe = FormataNumeroMoeda(fundamentos['ROE']);
