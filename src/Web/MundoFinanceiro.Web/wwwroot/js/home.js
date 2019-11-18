@@ -132,10 +132,10 @@ function renderizarNoticiasPapel(noticias) {
 }
 
 function renderizarFundamentosPapel(fundamentos) {
-    var lpa = FormataNumeroMoeda(fundamentos['LPA']);
-    var vpa = FormataNumeroMoeda(fundamentos['VPA']);
-    var roe = FormataNumeroMoeda(fundamentos['ROE']);
-    var roic = FormataNumeroMoeda(fundamentos['ROIC']);
+    var lpa = FormataNumeroMoeda(fundamentos['lpa']);
+    var vpa = FormataNumeroMoeda(fundamentos['vpa']);
+    var roe = FormataNumeroMoeda(fundamentos['roe']);
+    var roic = FormataNumeroMoeda(fundamentos['roic']);
     var valorMercado = FormataNumeroMoeda(fundamentos['valorMercado']);
     var str = "";
     
@@ -151,10 +151,9 @@ function renderizarFundamentosPapel(fundamentos) {
 }
 
 function montaHtmlCard(title, value) {
-    var strCard = "<div class='card bg-light' style='max-width: 18rem; margin-right: 3%; min-width: 8em'>\n" +
-        "<div class='card-header' style='text-align: center'>"+title+"</div>\n" +
+    const strCard = "<div class='card bg-light' style='max-width: 18rem; margin-right: 3%; min-width: 8em'>\n" +
+        "<div class='card-header' style='text-align: center'><strong>"+title+"</strong></div>\n" +
         " <div class='card-body'>\n" +
-        // "    <h5 class='card-title'></h5>\n" +
         "<div style='min-height: 75%; margin-bottom: 10%'><p style='margin-bottom: 0; text-align: justify;'>"+buscaTextTitle(title)+"</p></div>\n"+
         "<div><p class='card-text' style='text-align: center'>"+value+"</p></div>\n" +
         "</div>\n" +
@@ -163,7 +162,7 @@ function montaHtmlCard(title, value) {
 }
 
 function buscaTextTitle(title) {
-    var arrText = {
+    const arrText = {
                 'LPA': 'LPA (sigla para Lucro Por Ação) é o lucro líquido da companhia em determinado período dividido pelo total corrente de ações',
                 'ROE': 'ROE, ou Retorno sobre o Patrimônio corresponde ao  lucro líquido acumulado nos últimos 12 meses dividido pelo patrimônio líquido.',
                 'ROIC': 'ROIC, ou  Retorno Sobre o Capital Investido corresponde ao NOPLAT(Lucro Operacional Líquido depois dos Impostos) dividido pelo capital investido.',
