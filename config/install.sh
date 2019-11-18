@@ -12,20 +12,23 @@ sudo apt-get install dotnet-sdk-3.0
 git clone https://github.com/danielccunha/mundo-financeiro.git
 
 # Set default user-secrets
-connection_string = 'CONNECTION_STRING'
-
 cd mundo-financeiro/src/Api/MundoFinanceiro.Api/
-dotnet user-secrets set ConnectionStrings:Default $connection_string
+dotnet user-secrets set ConnectionStrings:Default 'CONNECTION_STRING'
 dotnet user-secrets set ApiSettings:CrawlerUrl 'CRAWLER_URL' # Already set crawler url
 
 cd ../../Web/MundoFinanceiro.Web/
-dotnet user-secrets set ConnectionStrings:Default $connection_string
+dotnet user-secrets set ConnectionStrings:Default 'CONNECTION_STRING'
 
 cd ../../Data/MundoFinanceiro.Crawler/
-dotnet user-secrets set ConnectionStrings:Default $connection_string
+dotnet user-secrets set ConnectionStrings:Default 'CONNECTION_STRING'
 
 # Set replication url
 cd ../MundoFinanceiro.Replicacao/
 dotnet user-secrets set ConnectionStrings:Default 'REPLICATION_URL'
 
 echo "Don't forget to update replications URL in the crawler"
+
+# Restore and build project
+cd ../..
+dotnet restore
+dotnet build
