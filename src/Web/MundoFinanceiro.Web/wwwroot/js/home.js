@@ -110,6 +110,11 @@ function renderizarHistoricoPapel(historico) {
 }
 
 function renderizarNoticiasPapel(noticias) {
+    if (!Array.isArray(noticias) || noticias.length === 0) {
+        $('#noticias-papel').children().remove();
+        return toastr.info('Nenhuma notícia encontrada para este papel.');
+    }
+    
     var str = "";
     for (var i = 0; i < 10; i++) {
         var urlImage = noticias[i]['urlToImage'];

@@ -25,7 +25,7 @@ namespace MundoFinanceiro.Database.Persistence.Repositories
                                 where f.PapelId == papelId && f.Data.Date == DateTime.Now.Date
                                 select f;
 
-            return fundamentoDia.SingleOrDefaultAsync();
+            return fundamentoDia.LastOrDefaultAsync();
         }
     }
 }
